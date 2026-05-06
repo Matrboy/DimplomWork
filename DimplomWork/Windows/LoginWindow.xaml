@@ -1,0 +1,44 @@
+﻿<Window x:Class="DimplomWork.Windows.LoginWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DimplomWork.Windows"
+        mc:Ignorable="d"
+                Title="Auto" Height="300" Width="350" WindowStyle="None" ResizeMode="NoResize" 
+
+     AllowsTransparency="True">
+    <Grid>
+        <!-- Фоновый слой с изображением -->
+        <Border CornerRadius="10" Margin="10" >
+            <Grid>
+
+
+                <!-- Центрированный контейнер с формой -->
+                <Border Background="#EEE" CornerRadius="10" Padding="20" Margin="20" HorizontalAlignment="Center" VerticalAlignment="Center" Width="300">
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Width="240" >
+                        <TextBlock Text="Вход" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+
+                        <!-- Логин -->
+                        <TextBlock Text="Логин:" />
+                        <TextBox x:Name="LoginTb" Margin="0,5,0,10" />
+
+                        <!-- Пароль -->
+                        <TextBlock Text="Пароль:" />
+                        <PasswordBox x:Name="PasswordPb" Margin="0,5,0,20" />
+
+                        <!-- Кнопка Войти -->
+                        <Button Content="Войти" Name="LoginBtn" Background="Blue" Foreground="White" FontWeight="Bold" Click="LoginBtn_Click" />
+
+                        <StackPanel HorizontalAlignment="Center" Margin="0,10,0,0">
+                            <TextBlock>
+                            <Run Text="Нет аккаунта? "/>
+                            <Button x:Name="RegistrationrBtn" Content="Зарегистрироваться" Click="RegistrationrBtn_Click"  Margin="-4" Background="Transparent" BorderThickness="0" Foreground="DodgerBlue" Cursor="Hand"/>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

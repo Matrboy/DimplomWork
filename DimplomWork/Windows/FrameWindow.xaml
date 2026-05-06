@@ -1,0 +1,157 @@
+﻿<Window x:Class="DimplomWork.FrameWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DimplomWork"
+        mc:Ignorable="d"
+        Title="FrameWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <!-- Правая колонка фиксированной ширины -->
+            <ColumnDefinition Width="Auto"/>
+            <!-- Основная область (середина) -->
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- ========== ПРАВАЯ КОЛОНКА ========== -->
+        <Border Grid.Column="0" 
+                Background="#F0F0F0" 
+                BorderBrush="#CCCCCC" 
+                BorderThickness="1,0,0,0"
+                Width="180">
+
+            <StackPanel>
+                <!-- Место под логотип -->
+                <Border Height="80" >
+
+                    <Image Source="C:\Users\User\source\repos\DimplomWork\DimplomWork\Images\Мир Камня.png"/>
+                    
+                </Border>
+
+                <!-- Кнопка 1 -->
+                <Button Content="Готовые изделия из камня" Name="Complete_ProductsFrameBtn" Click="Complete_ProductsFrameBtn_Click"
+                        Height="35" 
+                        Margin="10,20,10,15"
+                        Background="RoyalBlue" 
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand">
+                    <Button.Resources>
+                        <Style TargetType="Border">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </Button.Resources>
+                </Button>
+
+                <!-- Кнопка 2 -->
+                <Button Content="Декоративная плитка" Name="TilesFrameBtn" Click="TilesFrameBtn_Click"
+                        Height="35" 
+                        Margin="10,0"
+                        Background="RoyalBlue" 
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand">
+                    <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </Button.Resources>
+             </Button>
+                
+                <!-- Кнопка 2 -->
+                <Button Content="Новости" Name="NewsBtn" 
+                        Height="35" 
+                        Margin="10,15,10,0"
+                        Background="RoyalBlue" 
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand">
+                    <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </Button.Resources>
+             </Button>
+                
+                <!-- Кнопка 2 -->
+                <Button Content="О нас" Name="AboutBtn" 
+                        Height="35" 
+                        Margin="10,15"
+                        Background="RoyalBlue" 
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand">
+                    <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </Button.Resources>
+             </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- ========== ОСНОВНАЯ ОБЛАСТЬ (СЕРЕДИНА) ========== -->
+        <Grid Grid.Column="1" Margin="15">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Поиск + фильтр + профиль -->
+                <RowDefinition Height="*"/>
+                <!-- Фрейм -->
+            </Grid.RowDefinitions>
+
+            <!-- Верхняя панель с WrapPanel -->
+            <Border Grid.Row="0"           
+                    BorderBrush="#DDD" 
+                    BorderThickness="0,0,0,1"
+                    Padding="5"
+                    Margin="0,0,0,10">
+
+                <WrapPanel HorizontalAlignment="Stretch">
+
+                    
+                    <!-- Текстбокс поиска -->
+                    <TextBox Width="250" 
+                             Height="30" 
+                             Margin="5"
+                             Padding="5,0"
+                             VerticalContentAlignment="Center"
+                             Tag="Поиск..."
+                             Name="SearchTb" TextChanged="SearchTb_TextChanged"/>
+
+
+                    <ComboBox Foreground="Black"  Name="TonesCmb" Width="85"  Height="30"  SelectedValuePath="id" DisplayMemberPath="Name" SelectionChanged="TonesCmb_SelectionChanged" Margin="10" />
+
+                    <ComboBox Name="StoneTypesCmb" Width="80"  Height="30"  SelectedValuePath="id" DisplayMemberPath="Name" SelectionChanged="StoneTypesCmb_SelectionChanged" Margin="10"/>
+
+
+                    <!-- Пустое место для выравнивания профиля вправо -->
+                    <Menu Margin="5,8,10,10">
+                        <MenuItem Header="Профиль" 
+                                  Height="30"
+                                  Background="Transparent">
+                            <Separator/>
+                            <MenuItem Name="PersonalCabinetMI" Header="Личный кабинет" Click="PersonalCabinetMI_Click"/>
+                            <MenuItem Header="Заказы" />
+                            <MenuItem Header="Выход"/>
+                        </MenuItem>
+                    </Menu>
+
+
+
+                </WrapPanel>
+        
+            </Border>
+
+            <!-- Фрейм в центре -->
+            <Frame Grid.Row="1" 
+                   Name="MainFrame"
+                   NavigationUIVisibility="Hidden"
+                   BorderBrush="#E0E0E0" 
+                   BorderThickness="1"
+                   Background="#F9F9F9">
+            </Frame>
+        </Grid>
+    </Grid>
+</Window>
+

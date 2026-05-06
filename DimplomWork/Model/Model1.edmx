@@ -1,0 +1,638 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище Stone_ShopModel" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Complete_Products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="photo" Type="nvarchar(max)" />
+          <Property Name="stone_type_id" Type="int" />
+          <Property Name="tone_id" Type="int" />
+          <Property Name="description" Type="text" />
+          <Property Name="stock_quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Order_Items">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="order_id" Type="int" Nullable="false" />
+          <Property Name="complete_products_id" Type="int" />
+          <Property Name="tile_id" Type="int" />
+          <Property Name="quantity" Type="int" Nullable="false" />
+          <Property Name="price_at_moment" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" Nullable="false" />
+          <Property Name="order_number" Type="varchar" MaxLength="20" />
+          <Property Name="total_amount" Type="decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="20" />
+          <Property Name="delivery_address" Type="text" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="created_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Stone_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="photo" Type="nvarchar(max)" />
+          <Property Name="stone_type_id" Type="int" />
+          <Property Name="tone_id" Type="int" />
+          <Property Name="slab_size" Type="varchar" MaxLength="50" />
+          <Property Name="thickness_mm" Type="int" />
+          <Property Name="stock_quantity" Type="int" />
+        </EntityType>
+        <EntityType Name="Tones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="20" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="role_id" Type="int" Nullable="false" />
+          <Property Name="full_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="login" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="password" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="address" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK__Complete___stone__59063A47">
+          <End Role="Stone_Types" Type="Self.Stone_Types" Multiplicity="0..1" />
+          <End Role="Complete_Products" Type="Self.Complete_Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stone_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Complete_Products">
+              <PropertyRef Name="stone_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Complete___tone___59FA5E80">
+          <End Role="Tones" Type="Self.Tones" Multiplicity="0..1" />
+          <End Role="Complete_Products" Type="Self.Complete_Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Complete_Products">
+              <PropertyRef Name="tone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__compl__6EF57B66">
+          <End Role="Complete_Products" Type="Self.Complete_Products" Multiplicity="0..1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Complete_Products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="complete_products_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__order__6E01572D">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__tile___6FE99F9F">
+          <End Role="Tiles" Type="Self.Tiles" Multiplicity="0..1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="tile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__user_id__6B24EA82">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tiles__stone_typ__5DCAEF64">
+          <End Role="Stone_Types" Type="Self.Stone_Types" Multiplicity="0..1" />
+          <End Role="Tiles" Type="Self.Tiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stone_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tiles">
+              <PropertyRef Name="stone_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tiles__tone_id__5EBF139D">
+          <End Role="Tones" Type="Self.Tones" Multiplicity="0..1" />
+          <End Role="Tiles" Type="Self.Tiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tiles">
+              <PropertyRef Name="tone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__role_id__4F7CD00D">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище Stone_ShopModelContainer">
+          <EntitySet Name="Complete_Products" EntityType="Self.Complete_Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Order_Items" EntityType="Self.Order_Items" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stone_Types" EntityType="Self.Stone_Types" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tiles" EntityType="Self.Tiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tones" EntityType="Self.Tones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Complete___stone__59063A47" Association="Self.FK__Complete___stone__59063A47">
+            <End Role="Stone_Types" EntitySet="Stone_Types" />
+            <End Role="Complete_Products" EntitySet="Complete_Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Complete___tone___59FA5E80" Association="Self.FK__Complete___tone___59FA5E80">
+            <End Role="Tones" EntitySet="Tones" />
+            <End Role="Complete_Products" EntitySet="Complete_Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__compl__6EF57B66" Association="Self.FK__Order_Ite__compl__6EF57B66">
+            <End Role="Complete_Products" EntitySet="Complete_Products" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__order__6E01572D" Association="Self.FK__Order_Ite__order__6E01572D">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__tile___6FE99F9F" Association="Self.FK__Order_Ite__tile___6FE99F9F">
+            <End Role="Tiles" EntitySet="Tiles" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__user_id__6B24EA82" Association="Self.FK__Orders__user_id__6B24EA82">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tiles__stone_typ__5DCAEF64" Association="Self.FK__Tiles__stone_typ__5DCAEF64">
+            <End Role="Stone_Types" EntitySet="Stone_Types" />
+            <End Role="Tiles" EntitySet="Tiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tiles__tone_id__5EBF139D" Association="Self.FK__Tiles__tone_id__5EBF139D">
+            <End Role="Tones" EntitySet="Tones" />
+            <End Role="Tiles" EntitySet="Tiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__role_id__4F7CD00D" Association="Self.FK__Users__role_id__4F7CD00D">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Stone_ShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Complete_Products">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="stone_type_id" Type="Int32" />
+          <Property Name="tone_id" Type="Int32" />
+          <Property Name="description" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="stock_quantity" Type="Int32" />
+          <NavigationProperty Name="Stone_Types" Relationship="Self.FK__Complete___stone__59063A47" FromRole="Complete_Products" ToRole="Stone_Types" />
+          <NavigationProperty Name="Tones" Relationship="Self.FK__Complete___tone___59FA5E80" FromRole="Complete_Products" ToRole="Tones" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__compl__6EF57B66" FromRole="Complete_Products" ToRole="Order_Items" />
+        </EntityType>
+        <EntityType Name="Order_Items">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="order_id" Type="Int32" Nullable="false" />
+          <Property Name="complete_products_id" Type="Int32" />
+          <Property Name="tile_id" Type="Int32" />
+          <Property Name="quantity" Type="Int32" Nullable="false" />
+          <Property Name="price_at_moment" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="Complete_Products" Relationship="Self.FK__Order_Ite__compl__6EF57B66" FromRole="Order_Items" ToRole="Complete_Products" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Order_Ite__order__6E01572D" FromRole="Order_Items" ToRole="Orders" />
+          <NavigationProperty Name="Tiles" Relationship="Self.FK__Order_Ite__tile___6FE99F9F" FromRole="Order_Items" ToRole="Tiles" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="user_id" Type="Int32" Nullable="false" />
+          <Property Name="order_number" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="total_amount" Type="Decimal" Precision="12" Scale="2" Nullable="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="delivery_address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="created_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__order__6E01572D" FromRole="Orders" ToRole="Order_Items" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Orders__user_id__6B24EA82" FromRole="Orders" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Users" Relationship="Self.FK__Users__role_id__4F7CD00D" FromRole="Roles" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Stone_Types">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Complete_Products" Relationship="Self.FK__Complete___stone__59063A47" FromRole="Stone_Types" ToRole="Complete_Products" />
+          <NavigationProperty Name="Tiles" Relationship="Self.FK__Tiles__stone_typ__5DCAEF64" FromRole="Stone_Types" ToRole="Tiles" />
+        </EntityType>
+        <EntityType Name="Tiles">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="photo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="stone_type_id" Type="Int32" />
+          <Property Name="tone_id" Type="Int32" />
+          <Property Name="slab_size" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="thickness_mm" Type="Int32" />
+          <Property Name="stock_quantity" Type="Int32" />
+          <NavigationProperty Name="Order_Items" Relationship="Self.FK__Order_Ite__tile___6FE99F9F" FromRole="Tiles" ToRole="Order_Items" />
+          <NavigationProperty Name="Stone_Types" Relationship="Self.FK__Tiles__stone_typ__5DCAEF64" FromRole="Tiles" ToRole="Stone_Types" />
+          <NavigationProperty Name="Tones" Relationship="Self.FK__Tiles__tone_id__5EBF139D" FromRole="Tiles" ToRole="Tones" />
+        </EntityType>
+        <EntityType Name="Tones">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Complete_Products" Relationship="Self.FK__Complete___tone___59FA5E80" FromRole="Tones" ToRole="Complete_Products" />
+          <NavigationProperty Name="Tiles" Relationship="Self.FK__Tiles__tone_id__5EBF139D" FromRole="Tones" ToRole="Tiles" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="role_id" Type="Int32" Nullable="false" />
+          <Property Name="full_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="phone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="login" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="address" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__user_id__6B24EA82" FromRole="Users" ToRole="Orders" />
+          <NavigationProperty Name="Roles" Relationship="Self.FK__Users__role_id__4F7CD00D" FromRole="Users" ToRole="Roles" />
+        </EntityType>
+        <Association Name="FK__Complete___stone__59063A47">
+          <End Role="Stone_Types" Type="Self.Stone_Types" Multiplicity="0..1" />
+          <End Role="Complete_Products" Type="Self.Complete_Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stone_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Complete_Products">
+              <PropertyRef Name="stone_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Complete___tone___59FA5E80">
+          <End Role="Tones" Type="Self.Tones" Multiplicity="0..1" />
+          <End Role="Complete_Products" Type="Self.Complete_Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Complete_Products">
+              <PropertyRef Name="tone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__compl__6EF57B66">
+          <End Role="Complete_Products" Type="Self.Complete_Products" Multiplicity="0..1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Complete_Products">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="complete_products_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__order__6E01572D">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Orders">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="order_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Order_Ite__tile___6FE99F9F">
+          <End Role="Tiles" Type="Self.Tiles" Multiplicity="0..1" />
+          <End Role="Order_Items" Type="Self.Order_Items" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tiles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Order_Items">
+              <PropertyRef Name="tile_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Orders__user_id__6B24EA82">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Users__role_id__4F7CD00D">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Users" Type="Self.Users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Users">
+              <PropertyRef Name="role_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tiles__stone_typ__5DCAEF64">
+          <End Role="Stone_Types" Type="Self.Stone_Types" Multiplicity="0..1" />
+          <End Role="Tiles" Type="Self.Tiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Stone_Types">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tiles">
+              <PropertyRef Name="stone_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tiles__tone_id__5EBF139D">
+          <End Role="Tones" Type="Self.Tones" Multiplicity="0..1" />
+          <End Role="Tiles" Type="Self.Tiles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tones">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Tiles">
+              <PropertyRef Name="tone_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Stone_ShopEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Complete_Products" EntityType="Self.Complete_Products" />
+          <EntitySet Name="Order_Items" EntityType="Self.Order_Items" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" />
+          <EntitySet Name="Stone_Types" EntityType="Self.Stone_Types" />
+          <EntitySet Name="Tiles" EntityType="Self.Tiles" />
+          <EntitySet Name="Tones" EntityType="Self.Tones" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK__Complete___stone__59063A47" Association="Self.FK__Complete___stone__59063A47">
+            <End Role="Stone_Types" EntitySet="Stone_Types" />
+            <End Role="Complete_Products" EntitySet="Complete_Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Complete___tone___59FA5E80" Association="Self.FK__Complete___tone___59FA5E80">
+            <End Role="Tones" EntitySet="Tones" />
+            <End Role="Complete_Products" EntitySet="Complete_Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__compl__6EF57B66" Association="Self.FK__Order_Ite__compl__6EF57B66">
+            <End Role="Complete_Products" EntitySet="Complete_Products" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__order__6E01572D" Association="Self.FK__Order_Ite__order__6E01572D">
+            <End Role="Orders" EntitySet="Orders" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Order_Ite__tile___6FE99F9F" Association="Self.FK__Order_Ite__tile___6FE99F9F">
+            <End Role="Tiles" EntitySet="Tiles" />
+            <End Role="Order_Items" EntitySet="Order_Items" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Orders__user_id__6B24EA82" Association="Self.FK__Orders__user_id__6B24EA82">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Users__role_id__4F7CD00D" Association="Self.FK__Users__role_id__4F7CD00D">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Users" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tiles__stone_typ__5DCAEF64" Association="Self.FK__Tiles__stone_typ__5DCAEF64">
+            <End Role="Stone_Types" EntitySet="Stone_Types" />
+            <End Role="Tiles" EntitySet="Tiles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tiles__tone_id__5EBF139D" Association="Self.FK__Tiles__tone_id__5EBF139D">
+            <End Role="Tones" EntitySet="Tones" />
+            <End Role="Tiles" EntitySet="Tiles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище Stone_ShopModelContainer" CdmEntityContainer="Stone_ShopEntities">
+          <EntitySetMapping Name="Complete_Products">
+            <EntityTypeMapping TypeName="Stone_ShopModel.Complete_Products">
+              <MappingFragment StoreEntitySet="Complete_Products">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="stone_type_id" ColumnName="stone_type_id" />
+                <ScalarProperty Name="tone_id" ColumnName="tone_id" />
+                <ScalarProperty Name="description" ColumnName="description" />
+                <ScalarProperty Name="stock_quantity" ColumnName="stock_quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Order_Items">
+            <EntityTypeMapping TypeName="Stone_ShopModel.Order_Items">
+              <MappingFragment StoreEntitySet="Order_Items">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="order_id" ColumnName="order_id" />
+                <ScalarProperty Name="complete_products_id" ColumnName="complete_products_id" />
+                <ScalarProperty Name="tile_id" ColumnName="tile_id" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="price_at_moment" ColumnName="price_at_moment" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Stone_ShopModel.Orders">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="order_number" ColumnName="order_number" />
+                <ScalarProperty Name="total_amount" ColumnName="total_amount" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="delivery_address" ColumnName="delivery_address" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="created_at" ColumnName="created_at" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Stone_ShopModel.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stone_Types">
+            <EntityTypeMapping TypeName="Stone_ShopModel.Stone_Types">
+              <MappingFragment StoreEntitySet="Stone_Types">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tiles">
+            <EntityTypeMapping TypeName="Stone_ShopModel.Tiles">
+              <MappingFragment StoreEntitySet="Tiles">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+                <ScalarProperty Name="stone_type_id" ColumnName="stone_type_id" />
+                <ScalarProperty Name="tone_id" ColumnName="tone_id" />
+                <ScalarProperty Name="slab_size" ColumnName="slab_size" />
+                <ScalarProperty Name="thickness_mm" ColumnName="thickness_mm" />
+                <ScalarProperty Name="stock_quantity" ColumnName="stock_quantity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tones">
+            <EntityTypeMapping TypeName="Stone_ShopModel.Tones">
+              <MappingFragment StoreEntitySet="Tones">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="Stone_ShopModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="role_id" ColumnName="role_id" />
+                <ScalarProperty Name="full_name" ColumnName="full_name" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="login" ColumnName="login" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

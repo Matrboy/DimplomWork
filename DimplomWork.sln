@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36804.6 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DimplomWork", "DimplomWork\DimplomWork.csproj", "{BF771A82-3261-46DB-9CF3-0F6F0E5101CC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BF771A82-3261-46DB-9CF3-0F6F0E5101CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF771A82-3261-46DB-9CF3-0F6F0E5101CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF771A82-3261-46DB-9CF3-0F6F0E5101CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF771A82-3261-46DB-9CF3-0F6F0E5101CC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9EC1830B-B6D6-4A05-8B24-9080901C025C}
+	EndGlobalSection
+EndGlobal
