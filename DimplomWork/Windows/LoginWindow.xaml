@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DimplomWork.Windows"
         mc:Ignorable="d"
-                Title="Auto" Height="300" Width="350" WindowStyle="None" ResizeMode="NoResize" 
-
-     AllowsTransparency="True">
+                Title="Auto" Height="300" Width="350"  Icon="\Images\Мир Камня.png"
+         ResizeMode="NoResize" WindowStartupLocation="CenterScreen" AllowsTransparency="True">
     <Grid>
         <!-- Фоновый слой с изображением -->
         <Border CornerRadius="10" Margin="10" >

@@ -22,7 +22,15 @@ namespace DimplomWork.Pages
     /// Логика взаимодействия для TilesPage.xaml
     /// </summary>
     public partial class TilesPage : Page
+
     {
+
+        public ListBox TilesListBox => TilesLb; // Для доступа из главного окна
+
+
+
+
+
         public string SelectedTone = "Все";
         public string SelectedStoneType = "Все";
         private List<Tiles> _allTiles;

@@ -1,0 +1,150 @@
+﻿<Page x:Class="DimplomWork.Pages.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:DimplomWork.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AboutPage">
+
+    <Grid Background="#F9F9F9">
+        <Grid Margin="30">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Заголовок -->
+            <TextBlock Grid.Row="0" 
+                       Text="О компании «Мир Камня»" 
+                       FontSize="28" 
+                       FontWeight="Bold"
+                       Foreground="#2C3E50"
+                       HorizontalAlignment="Center"
+                       Margin="0,0,0,20"/>
+
+            <!-- Разделитель -->
+            <Border Grid.Row="1" 
+                    Height="3" 
+                    Width="100" 
+                    Background="#3498DB" 
+                    HorizontalAlignment="Center"
+                    CornerRadius="3"
+                    Margin="0,0,0,30"/>
+
+            <!-- Основной текст -->
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto" MaxHeight="300">
+                <StackPanel>
+                    <TextBlock Text="Добро пожаловать в “Мир Камня” — магазин, где древний камень превращается в произведения искусства." 
+                               FontSize="16" 
+                               Foreground="#34495E"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,15"/>
+
+                    <TextBlock Text="Мы предлагаем широкий ассортимент изделий из натурального и искусственного камня, созданных с мастерством и вниманием к каждой детали." 
+                               FontSize="14" 
+                               Foreground="#7F8C8D"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,15"/>
+
+                    <TextBlock Text="От элегантных декоративных элементов до функциональных кухонных столешниц и ванн, наши изделия из камня станут украшением вашего дома или офиса." 
+                               FontSize="14" 
+                               Foreground="#7F8C8D"
+                               TextWrapping="Wrap"
+                               Margin="0,0,0,25"/>
+
+                    <!-- Наша миссия (выделенный блок) -->
+                    <Border Background="#E8F4FD" 
+                            CornerRadius="10" 
+                            Padding="15"
+                            Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock Text="🎯 Наша миссия" 
+                                       FontSize="18" 
+                                       FontWeight="Bold"
+                                       Foreground="#2980B9"
+                                       Margin="0,0,0,10"/>
+                            <TextBlock Text="Мы стремимся предоставить нашим клиентам лучшие изделия из камня, предлагая индивидуальные решения и гарантируя высочайшее качество нашей продукции." 
+                                       FontSize="14" 
+                                       Foreground="#34495E"
+                                       TextWrapping="Wrap"/>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- Преимущества -->
+                    <TextBlock Text="✨ Почему выбирают нас?" 
+                               FontSize="20" 
+                               FontWeight="Bold"
+                               Foreground="#2C3E50"
+                               Margin="0,0,0,15"/>
+
+                    <WrapPanel Margin="0,0,0,20">
+                        <Border Background="#27AE60" 
+                                CornerRadius="8" 
+                                Padding="10,5" 
+                                Margin="0,0,10,10"
+                                Width="200">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🏆" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Высокое качество" Foreground="White" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#3498DB" 
+                                CornerRadius="8" 
+                                Padding="10,5" 
+                                Margin="0,0,10,10"
+                                Width="200">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🚚" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Быстрая доставка" Foreground="White" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#E67E22" 
+                                CornerRadius="8" 
+                                Padding="10,5" 
+                                Margin="0,0,10,10"
+                                Width="200">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="💎" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Натуральный камень" Foreground="White" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </Border>
+
+                        <Border Background="#9B59B6" 
+                                CornerRadius="8" 
+                                Padding="10,5" 
+                                Margin="0,0,10,10"
+                                Width="200">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="🛠️" FontSize="16" Margin="0,0,8,0"/>
+                                <TextBlock Text="Индивидуальные заказы" Foreground="White" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </Border>
+                    </WrapPanel>
+
+                    <!-- Контактная информация -->
+                    <Border Background="#F0F0F0" 
+                            CornerRadius="10" 
+                            Padding="15"
+                            Margin="0,0,0,20">
+                        <StackPanel>
+                            <TextBlock Text="📞 Контакты" 
+                                       FontSize="16" 
+                                       FontWeight="Bold"
+                                       Margin="0,0,0,10"/>
+                            <TextBlock Text="Телефон: +7 (999) 123-45-67" FontSize="13" Margin="0,3"/>
+                            <TextBlock Text="Email: info@mir-kamnya.ru" FontSize="13" Margin="0,3"/>
+                            <TextBlock Text="Адрес: г. Москва, ул. Каменная, д. 1" FontSize="13" Margin="0,3"/>
+                            <TextBlock Text="Часы работы: Пн-Пт 9:00 - 20:00, Сб 10:00 - 18:00" FontSize="13" Margin="0,3"/>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Page>

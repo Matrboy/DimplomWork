@@ -27,14 +27,32 @@ namespace DimplomWork
         {   
             InitializeComponent();
 
+            // Проверяем роль пользователя
+            if (App.currentUser != null && App.currentUser.role_id == 2)  // Если администратор (роль 2)
+            {
+                // Показываем все 4 кнопки для администратора
+                DeleteProductTileBtn.Visibility = Visibility.Visible;
+                EditProductTileBtn.Visibility = Visibility.Visible;
+                AddProductTileBtn.Visibility = Visibility.Visible;
+                SupliersInfBtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                // Скрываем кнопки для обычных пользователей
+                DeleteProductTileBtn.Visibility = Visibility.Collapsed;
+                EditProductTileBtn.Visibility = Visibility.Collapsed;
+                AddProductTileBtn.Visibility = Visibility.Collapsed;
+                SupliersInfBtn.Visibility = Visibility.Collapsed;
+            }
+
             // Заполняем комбобокс тонов
-            TonesCmb.Items.Add("Все");
+            TonesCmb.Items.Add("Все Тона");
             TonesCmb.Items.Add("Светлый");
             TonesCmb.Items.Add("Темный");
             TonesCmb.SelectedIndex = 0;
 
             // Заполняем комбобокс типов камня
-            StoneTypesCmb.Items.Add("Все");
+            StoneTypesCmb.Items.Add("Все Камни");
             StoneTypesCmb.Items.Add("Мрамор");
             StoneTypesCmb.Items.Add("Оникс");
             StoneTypesCmb.Items.Add("Гранит");
@@ -112,6 +130,73 @@ namespace DimplomWork
             ProfileWindow profileWindow = new ProfileWindow();
             profileWindow.Show();
             this.Close();
+        }
+
+        private void DeleteProductTileBtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MainFrame.Content is CompleteProductsPage productsPage)
+            {
+                // Прямой доступ к SelectedItem ListBox
+                var selectedProduct = productsPage.Complete_ProductsListBox.SelectedItem as Complete_Products;
+
+                if (selectedProduct != null)
+                {
+                    if (MessageBox.Show($"Удалить '{selectedProduct.Name}'?", "Подтверждение",
+                        MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        var product = App.context.Complete_Products.Find(selectedProduct.id);
+                        App.context.Complete_Products.Remove(product);
+                        App.context.SaveChanges();
+                        productsPage.RefreshData();
+                        MessageBox.Show("Удалено!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите товар!");
+                }
+            }
+            else if (MainFrame.Content is TilesPage tilesPage)
+            {
+                var selectedTile = tilesPage.TilesListBox.SelectedItem as Tiles;
+
+                if (selectedTile != null)
+                {
+                    if (MessageBox.Show($"Удалить '{selectedTile.Name}'?", "Подтверждение",
+                        MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        var tile = App.context.Tiles.Find(selectedTile.id);
+                        App.context.Tiles.Remove(tile);
+                        App.context.SaveChanges();
+                        tilesPage.RefreshData();
+                        MessageBox.Show("Удалено!");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Выберите плитку!");
+                }
+            }
+        }
+
+        private void EditProductTileBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void AddProductTileBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SupliersInfBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new SupliersPage());
+        }
+
+        private void AboutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            MainFrame.Navigate(new AboutPage());
         }
     }
 }

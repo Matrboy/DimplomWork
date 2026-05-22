@@ -7,20 +7,93 @@
         mc:Ignorable="d"
               Title="Профиль пользователя" 
         Height="400" Width="500"
-        WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
-       >
+         Icon="\Images\Мир Камня.png"
+         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
 
     <Grid Margin="20">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <!-- Левая колонка с данными -->
-            <ColumnDefinition Width="200"/>
-            <!-- Правая колонка с фото -->
+            <ColumnDefinition Width="180"/>
+            <!-- Левая колонка с фото и кнопками -->
+            <ColumnDefinition Width="*"/>
+            <!-- Правая колонка с данными -->
         </Grid.ColumnDefinitions>
 
-        <!-- Левая часть: Данные пользователя -->
-        <StackPanel Grid.Column="1" Margin="0,0,5,0" VerticalAlignment="Center">
+        <!-- ========== ЛЕВАЯ КОЛОНКА: Фото + Кнопки ========== -->
+        <StackPanel Grid.Column="0" VerticalAlignment="Top">
+
+            <!-- Фото профиля -->
+            <Border BorderBrush="#BDC3C7" 
+                    BorderThickness="2" 
+                    CornerRadius="10"
+                    Background="#F8F9FA"
+                    Width="160" Height="160">
+
+                <Grid>
+                    <Image x:Name="ProfileImage" 
+                           Stretch="UniformToFill"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"/>
+
+                    <TextBlock x:Name="NoPhotoText" 
+                               Text="📷 Фото профиля" 
+                               TextAlignment="Center"
+                               HorizontalAlignment="Center" 
+                               VerticalAlignment="Center"
+                               Foreground="#BDC3C7"
+                               FontSize="14"/>
+                </Grid>
+            </Border>
+
+            <!-- Кнопка Редактировать -->
+            <Button x:Name="EditUserInfBtn" 
+                    Content="✏️ Редактировать" 
+                    Background="#3498DB" 
+                    Foreground="White" 
+                    Width="140" 
+                    Height="35"
+                    Margin="0,40,0,5"
+                    Cursor="Hand"
+                    Click="EditUserInfBtn_Click"/>
+
+            <!-- Кнопки Сохранить и Отмена (появляются при редактировании) -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,5">
+                <Button x:Name="SaveBtn" 
+                        Content="💾 Сохранить" 
+                        Background="#27AE60" 
+                        Foreground="White" 
+                        Width="85" 
+                        Height="35"
+                        Margin="0,0,5,0"
+                        Cursor="Hand"
+                        Click="SaveBtn_Click"
+                        Visibility="Collapsed"/>
+
+                <Button x:Name="CancelBtn" 
+                        Content="❌ Отмена" 
+                        Background="#95A5A6" 
+                        Foreground="White" 
+                        Width="70" 
+                        Height="35"
+                        Cursor="Hand"
+                        Click="CancelBtn_Click"
+                        Visibility="Collapsed"/>
+            </StackPanel>
+
+            <!-- Кнопка Назад -->
+            <Button x:Name="BackBtn" 
+                    Content="← Назад" 
+                    Background="#7F8C8D" 
+                    Foreground="White" 
+                    Width="100" 
+                    Height="30"
+                    Margin="0,15,0,0"
+                    Cursor="Hand"
+                    Click="BackBtn_Click"/>
+        </StackPanel>
+
+        <!-- ========== ПРАВАЯ КОЛОНКА: Данные пользователя ========== -->
+        <StackPanel Grid.Column="1" Margin="15,0,0,0">
             <!-- Заголовок -->
             <TextBlock Text="ДАННЫЕ ПРОФИЛЯ" 
                        FontSize="18" 
@@ -29,64 +102,40 @@
                        Margin="0,0,0,20"/>
 
             <!-- ФИО -->
-            <TextBlock Text="ФИО:"/>
-            <TextBox Text="{Binding full_name, UpdateSourceTrigger=PropertyChanged}" 
-                     Margin="0,0,0,15"
-                     Padding="8"
-                     FontSize="13"/>
-
-            <!-- Телефон -->
-            <TextBlock Text="Телефон:" />
-            <TextBox Text="{Binding phone, UpdateSourceTrigger=PropertyChanged}" 
-                     Margin="0,0,0,15"
-                     Padding="8"
-                     FontSize="13"/>
-
-            <!-- Email -->
-            <TextBlock Text="Email:"/>
-            <TextBox Text="{Binding email, UpdateSourceTrigger=PropertyChanged}" 
-                     Margin="0,0,0,15"
-                     Padding="8"
-                     FontSize="13"/>
-
-            <!-- Адрес -->
-            <TextBlock Text="Адрес:"/>
-            <TextBox Text="{Binding Orders.address, UpdateSourceTrigger=PropertyChanged}" 
+            <TextBlock Text="ФИО:" FontWeight="SemiBold" Margin="0,5,0,2"/>
+            <TextBox x:Name="FIOTb" 
+                     Text="{Binding full_name, UpdateSourceTrigger=PropertyChanged}" 
                      Margin="0,0,0,15"
                      Padding="8"
                      FontSize="13"
-                     TextWrapping="Wrap"
-                     Height="60"/>
+                     IsEnabled="False"/>
 
-           
-        </StackPanel>
+            <!-- Телефон -->
+            <TextBlock Text="Телефон:" FontWeight="SemiBold" Margin="0,5,0,2"/>
+            <TextBox x:Name="PhoneTb" 
+                     Text="{Binding phone, UpdateSourceTrigger=PropertyChanged}" 
+                     Margin="0,0,0,15"
+                     Padding="8"
+                     FontSize="13"
+                     IsEnabled="False"/>
 
-        <!-- Правая часть: Фото профиля -->
-        <Border Grid.Column="0" 
-                BorderBrush="#BDC3C7" 
-                BorderThickness="2" 
-                CornerRadius="10"
-                Background="#F8F9FA"
-                VerticalAlignment="Top"
-                HorizontalAlignment="Left"
-                Width="180" Height="180">
+            <!-- Email -->
+            <TextBlock Text="Email:" FontWeight="SemiBold" Margin="0,5,0,2"/>
+            <TextBox x:Name="EmailTb" 
+                     Text="{Binding email, UpdateSourceTrigger=PropertyChanged}" 
+                     Margin="0,0,0,15"
+                     Padding="8"
+                     FontSize="13"
+                     IsEnabled="False"/>
 
-            <Grid>
-     
-                <!-- Текст-заполнитель если фото недоступно -->
-                <TextBlock Text="Фото профиля" 
-                           HorizontalAlignment="Center" 
-                           VerticalAlignment="Center"
-                           Foreground="#BDC3C7"
-                           FontSize="14"
-                           />
-                
-            </Grid>
-            
-        </Border>
-        <StackPanel VerticalAlignment="Center" Margin="0,150,0,0">
-            <Button Content="Редактировать данные" Background="Blue" Foreground="White" />
-            <Button Content="Назад" Margin="0,30,0,0" Background="Blue" Foreground="White"/>
+            <!-- Статус (индикатор) -->
+            <TextBlock x:Name="StatusTb" 
+                       Text="" 
+                       Foreground="Green"
+                       FontSize="11"
+                       Margin="0,5,0,5"
+                       HorizontalAlignment="Center"
+                       Visibility="Collapsed"/>
         </StackPanel>
     </Grid>
 </Window>

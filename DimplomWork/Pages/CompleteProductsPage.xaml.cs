@@ -26,6 +26,11 @@ namespace DimplomWork.Pages
     public partial class CompleteProductsPage : Page
     {
 
+
+
+        public ListBox Complete_ProductsListBox => Complete_ProductsLb; // Для доступа из главного окна
+
+
         public string SelectedTone = "Все";
         public string SelectedStoneType = "Все";
         private List<Complete_Products> _allProducts;

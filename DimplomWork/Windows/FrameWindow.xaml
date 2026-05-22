@@ -5,7 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:DimplomWork"
         mc:Ignorable="d"
-        Title="FrameWindow" Height="450" Width="800">
+        Title="FrameWindow" Height="500" Width="800"  Icon="\Images\Мир Камня.png"
+         ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
     <Grid>
         <Grid.ColumnDefinitions>
             <!-- Правая колонка фиксированной ширины -->
@@ -14,12 +16,22 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
+        <!-- ФОН С КАРТИНКОЙ (как в первом окне) -->
+        <Grid.Background>
+            <ImageBrush ImageSource="\Images\Рисунок1.png" Stretch="UniformToFill"/>
+        </Grid.Background>
+
+        <!-- ПОЛУПРОЗРАЧНЫЙ СЛОЙ (чтобы элементы были видны) -->
+        <Border Background="White" Opacity="0.85"/>
+
+
         <!-- ========== ПРАВАЯ КОЛОНКА ========== -->
         <Border Grid.Column="0" 
-                Background="#F0F0F0" 
                 BorderBrush="#CCCCCC" 
-                BorderThickness="1,0,0,0"
-                Width="180">
+                BorderThickness="0,0,1,0"  
+                Width="180"
+                Background="WhiteSmoke">
+            <!-- ИСПРАВЛЕНО: прозрачный фон -->
 
             <StackPanel>
                 <!-- Место под логотип -->
@@ -47,7 +59,7 @@
                 <!-- Кнопка 2 -->
                 <Button Content="Декоративная плитка" Name="TilesFrameBtn" Click="TilesFrameBtn_Click"
                         Height="35" 
-                        Margin="10,0"
+                        Margin="10,0,10,15"
                         Background="RoyalBlue" 
                         Foreground="White"
                         BorderThickness="0"
@@ -60,9 +72,9 @@
              </Button>
                 
                 <!-- Кнопка 2 -->
-                <Button Content="Новости" Name="NewsBtn" 
+                <Button Content="О нас" Name="AboutBtn" Click="AboutBtn_Click"
                         Height="35" 
-                        Margin="10,15,10,0"
+                       Margin="10,0,10,15"
                         Background="RoyalBlue" 
                         Foreground="White"
                         BorderThickness="0"
@@ -75,9 +87,52 @@
              </Button>
                 
                 <!-- Кнопка 2 -->
-                <Button Content="О нас" Name="AboutBtn" 
+                <Button Content="Добавить товары" Name="AddProductTileBtn" Click="AddProductTileBtn_Click"
                         Height="35" 
-                        Margin="10,15"
+                       Margin="10,0,10,15"
+                        Background="RoyalBlue" 
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand">
+                    <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </Button.Resources>
+             </Button>
+                
+                <!-- Кнопка 2 -->
+                <Button Content="Редактировать товары" Name="EditProductTileBtn" Click="EditProductTileBtn_Click"
+                        Height="35" 
+                        Margin="10,0,10,15"
+                        Background="RoyalBlue" 
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand">
+                    <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </Button.Resources>
+             </Button>
+                <!-- Кнопка 2 -->
+                <Button Content="Удалить товары" Name="DeleteProductTileBtn" Click="DeleteProductTileBtn_Click"
+                        Height="35" 
+                        Margin="10,0,10,15"
+                        Background="RoyalBlue" 
+                        Foreground="White"
+                        BorderThickness="0"
+                        Cursor="Hand">
+                    <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="4"/>
+                    </Style>
+                </Button.Resources>
+             </Button>
+                <!-- Кнопка 2 -->
+                <Button Content="Поставщики" Name="SupliersInfBtn" Click="SupliersInfBtn_Click"
+                        Height="35" 
+                        Margin="10,0,10,15"
                         Background="RoyalBlue" 
                         Foreground="White"
                         BorderThickness="0"
@@ -120,13 +175,13 @@
                              Name="SearchTb" TextChanged="SearchTb_TextChanged"/>
 
 
-                    <ComboBox Foreground="Black"  Name="TonesCmb" Width="85"  Height="30"  SelectedValuePath="id" DisplayMemberPath="Name" SelectionChanged="TonesCmb_SelectionChanged" Margin="10" />
+                    <ComboBox  Name="TonesCmb" Width="85"  Height="30"   SelectionChanged="TonesCmb_SelectionChanged" Margin="10,0,0,0" />
 
-                    <ComboBox Name="StoneTypesCmb" Width="80"  Height="30"  SelectedValuePath="id" DisplayMemberPath="Name" SelectionChanged="StoneTypesCmb_SelectionChanged" Margin="10"/>
+                    <ComboBox Name="StoneTypesCmb" Width="100"  Height="30"  SelectionChanged="StoneTypesCmb_SelectionChanged" Margin="10"/>
 
 
                     <!-- Пустое место для выравнивания профиля вправо -->
-                    <Menu Margin="5,8,10,10">
+                    <Menu Margin="3,8,10,10">
                         <MenuItem Header="Профиль" 
                                   Height="30"
                                   Background="Transparent">
