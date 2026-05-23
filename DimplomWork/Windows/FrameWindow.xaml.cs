@@ -181,12 +181,41 @@ namespace DimplomWork
 
         private void EditProductTileBtn_Click(object sender, RoutedEventArgs e)
         {
+            if (MainFrame.Content is CompleteProductsPage productsPage)
+            {
+                var selectedProduct = productsPage.Complete_ProductsListBox.SelectedItem as Complete_Products;
 
+                if (selectedProduct != null)
+                {
+                    MainFrame.Navigate(new EditItemPage(selectedProduct));
+                }
+                else
+                {
+                    MessageBox.Show("Выберите товар!");
+                }
+            }
+            else if (MainFrame.Content is TilesPage tilesPage)
+            {
+                var selectedTile = tilesPage.TilesListBox.SelectedItem as Tiles;
+
+                if (selectedTile != null)
+                {
+                    MainFrame.Navigate(new EditItemPage(selectedTile));
+                }
+                else
+                {
+                    MessageBox.Show("Выберите плитку!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Откройте список товаров или плитки!");
+            }
         }
 
         private void AddProductTileBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            MainFrame.Navigate(new AddItemsPage());
         }
 
         private void SupliersInfBtn_Click(object sender, RoutedEventArgs e)
